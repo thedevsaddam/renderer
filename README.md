@@ -13,7 +13,7 @@ Simple, lightweight and faster response (JSON, JSONP, XML, YAML, HTML, File) ren
 
 Install the package using
 ```go
-$ go get github.com/thedevsaddam/renderer/..
+$ go get github.com/thedevsaddam/renderer/...
 ```
 
 ### Usage
