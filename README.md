@@ -37,7 +37,7 @@ import (
 )
 
 func main() {
-	r := renderer.New()
+	rnd := renderer.New()
 
 	mux := http.NewServeMux()
 
@@ -47,63 +47,63 @@ func main() {
 	}{"John Doe", 30}
 
 	// serving String as text/plain
-	mux.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
-		r.String(w, http.StatusOK, "Welcome to renderer")
+	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		rnd.String(w, http.StatusOK, "Welcome to renderer")
 	})
 
 	// serving success but no content
-	mux.HandleFunc("/no-content", func(w http.ResponseWriter, req *http.Request) {
-		r.NoContent(w)
+	mux.HandleFunc("/no-content", func(w http.ResponseWriter, r *http.Request) {
+		rnd.NoContent(w)
 	})
 
 	// serving JSON
-	mux.HandleFunc("/json", func(w http.ResponseWriter, req *http.Request) {
-		r.JSON(w, http.StatusOK, usr)
+	mux.HandleFunc("/json", func(w http.ResponseWriter, r *http.Request) {
+		rnd.JSON(w, http.StatusOK, usr)
 	})
 
 	// serving JSONP
-	mux.HandleFunc("/jsonp", func(w http.ResponseWriter, req *http.Request) {
-		r.JSONP(w, http.StatusOK, "callback", usr)
+	mux.HandleFunc("/jsonp", func(w http.ResponseWriter, r *http.Request) {
+		rnd.JSONP(w, http.StatusOK, "callback", usr)
 	})
 
 	// serving XML
-	mux.HandleFunc("/xml", func(w http.ResponseWriter, req *http.Request) {
-		r.XML(w, http.StatusOK, usr)
+	mux.HandleFunc("/xml", func(w http.ResponseWriter, r *http.Request) {
+		rnd.XML(w, http.StatusOK, usr)
 	})
 
 	// serving YAML
-	mux.HandleFunc("/yaml", func(w http.ResponseWriter, req *http.Request) {
-		r.YAML(w, http.StatusOK, usr)
+	mux.HandleFunc("/yaml", func(w http.ResponseWriter, r *http.Request) {
+		rnd.YAML(w, http.StatusOK, usr)
 	})
 
 	// serving File as arbitary binary data
-	mux.HandleFunc("/binary", func(w http.ResponseWriter, req *http.Request) {
+	mux.HandleFunc("/binary", func(w http.ResponseWriter, r *http.Request) {
 		var reader io.Reader
 		reader, _ = os.Open("../README.md")
-		r.Binary(w, http.StatusOK, reader, "readme.md", true)
+		rnd.Binary(w, http.StatusOK, reader, "readme.md", true)
 	})
 
 	// serving File as inline
-	mux.HandleFunc("/file-inline", func(w http.ResponseWriter, req *http.Request) {
-		r.FileView(w, http.StatusOK, "../README.md", "readme.md")
+	mux.HandleFunc("/file-inline", func(w http.ResponseWriter, r *http.Request) {
+		rnd.FileView(w, http.StatusOK, "../README.md", "readme.md")
 	})
 
 	// serving File as attachment
-	mux.HandleFunc("/file-download", func(w http.ResponseWriter, req *http.Request) {
-		r.FileDownload(w, http.StatusOK, "../README.md", "readme.md")
+	mux.HandleFunc("/file-download", func(w http.ResponseWriter, r *http.Request) {
+		rnd.FileDownload(w, http.StatusOK, "../README.md", "readme.md")
 	})
 
 	// serving File from reader as inline
-	mux.HandleFunc("/file-reader", func(w http.ResponseWriter, req *http.Request) {
+	mux.HandleFunc("/file-reader", func(w http.ResponseWriter, r *http.Request) {
 		var reader io.Reader
 		reader, _ = os.Open("../README.md")
-		r.File(w, http.StatusOK, reader, "readme.md", true)
+		rnd.File(w, http.StatusOK, reader, "readme.md", true)
 	})
 
 	// serving custom response using render and chaining methods
-	mux.HandleFunc("/render", func(w http.ResponseWriter, req *http.Request) {
+	mux.HandleFunc("/render", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set(renderer.ContentType, renderer.ContentText)
-		r.Render(w, http.StatusOK, []byte("Send the message as text response"))
+		rnd.Render(w, http.StatusOK, []byte("Send the message as text response"))
 	})
 
 	port := ":9000"
@@ -179,7 +179,7 @@ func toUpper(s string) string {
 	return strings.ToUpper(s)
 }
 
-func handler(w http.ResponseWriter, req *http.Request) {
+func handler(w http.ResponseWriter, r *http.Request) {
 	usr := struct {
 		Name string
 		Age  int
@@ -258,7 +258,7 @@ func init() {
 	)
 }
 
-func handler(w http.ResponseWriter, req *http.Request) {
+func handler(w http.ResponseWriter, r *http.Request) {
 	err := r.HTML(w, http.StatusOK, "indexPage", nil)
 	if err != nil {
 		log.Fatal(err)
@@ -336,14 +336,14 @@ func init() {
 	}
 }
 
-func home(w http.ResponseWriter, req *http.Request) {
+func home(w http.ResponseWriter, r *http.Request) {
 	err = r.VIEW(w, http.StatusOK, "home", nil)
 	if err != nil {
 		log.Fatal(err)
 	}
 }
 
-func about(w http.ResponseWriter, req *http.Request) {
+func about(w http.ResponseWriter, r *http.Request) {
 	err = r.VIEW(w, http.StatusOK, "about", nil)
 	if err != nil {
 		log.Fatal(err)
