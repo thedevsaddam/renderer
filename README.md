@@ -7,7 +7,7 @@ Package renderer
 [![GoDoc](https://godoc.org/github.com/thedevsaddam/renderer?status.svg)](https://godoc.org/github.com/thedevsaddam/renderer)
 [![License](https://img.shields.io/dub/l/vibe-d.svg)](https://github.com/thedevsaddam/renderer/blob/dev/LICENSE.md)
 
-Simple, lightweight and fastest response (JSON, JSONP, XML, YAML, HTML, File) rendering package for Go
+Simple, lightweight and faster response (JSON, JSONP, XML, YAML, HTML, File) rendering package for Go
 
 ### Installation
 
@@ -357,6 +357,8 @@ func main() {
 	http.ListenAndServe(":9000", nil)
 }
 ```
+
+***Note:*** This is a wrapper on top of go built-in packages to provide syntactic sugar.
 
 ### Contribution
 Your suggestions will be more than appreciated.
