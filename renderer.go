@@ -412,8 +412,8 @@ func (r *Render) Template(w http.ResponseWriter, status int, tpls []string, v in
 	return err
 }
 
-// VIEW build html from template directory and serve html content as response. See README.md for detail example.
-func (r *Render) VIEW(w http.ResponseWriter, status int, name string, v interface{}) error {
+// View build html from template directory and serve html content as response. See README.md for detail example.
+func (r *Render) View(w http.ResponseWriter, status int, name string, v interface{}) error {
 	w.Header().Set(ContentType, r.opts.ContentHTML)
 	w.WriteHeader(status)
 

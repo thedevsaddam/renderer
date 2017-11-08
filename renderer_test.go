@@ -519,7 +519,7 @@ func Test_View(t *testing.T) {
 	expected := `<html><head><title>Home</title></head><body><h3>Home page</h3><ul><li><a href="/">Home</a></li><li><a href="/about">About Me</a></li></ul><p>Lorem ipsum dolor sit amet</p></body></html>`
 
 	h := http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-		err = r.VIEW(w, http.StatusOK, "home", nil)
+		err = r.View(w, http.StatusOK, "home", nil)
 	})
 
 	res := httptest.NewRecorder()
@@ -554,7 +554,7 @@ func Test_View_invalid_name(t *testing.T) {
 	)
 
 	h := http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-		err = r.VIEW(w, http.StatusOK, "invalid template", nil)
+		err = r.View(w, http.StatusOK, "invalid template", nil)
 	})
 
 	res := httptest.NewRecorder()

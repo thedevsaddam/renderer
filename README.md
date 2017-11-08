@@ -329,14 +329,14 @@ func init() {
 }
 
 func home(w http.ResponseWriter, r *http.Request) {
-	err := rnd.VIEW(w, http.StatusOK, "home", nil)
+	err := rnd.View(w, http.StatusOK, "home", nil)
 	if err != nil {
 		log.Fatal(err)
 	}
 }
 
 func about(w http.ResponseWriter, r *http.Request) {
-	err := rnd.VIEW(w, http.StatusOK, "about", nil)
+	err := rnd.View(w, http.StatusOK, "about", nil)
 	if err != nil {
 		log.Fatal(err)
 	}
