@@ -165,14 +165,10 @@ import (
 	"github.com/thedevsaddam/renderer"
 )
 
-var r *renderer.Render
-var err error
+var rnd *renderer.Render
 
 func init() {
-	r = renderer.New()
-	if err != nil {
-		log.Fatal(err)
-	}
+	rnd = renderer.New()
 }
 
 func toUpper(s string) string {
@@ -186,10 +182,10 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	}{"john doe", 30}
 
 	tpls := []string{"template/layout.tmpl", "template/index.tmpl", "template/partial.tmpl"}
-	r.FuncMap(template.FuncMap{
+	rnd.FuncMap(template.FuncMap{
 		"toUpper": toUpper,
 	})
-	err = r.Template(w, http.StatusOK, tpls, usr)
+	err := rnd.Template(w, http.StatusOK, tpls, usr)
 	if err != nil {
 		log.Fatal(err) //respond with error page or message
 	}
@@ -248,10 +244,10 @@ import (
 	"github.com/thedevsaddam/renderer"
 )
 
-var r *renderer.Render
+var rnd *renderer.Render
 
 func init() {
-	r = renderer.New(
+	rnd = renderer.New(
 		renderer.Options{
 			ParseGlobPattern: "html/*.html",
 		},
@@ -259,7 +255,7 @@ func init() {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	err := r.HTML(w, http.StatusOK, "indexPage", nil)
+	err := rnd.HTML(w, http.StatusOK, "indexPage", nil)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -324,27 +320,23 @@ import (
 	"github.com/thedevsaddam/renderer"
 )
 
-var r *renderer.Render
-var err error
+var rnd *renderer.Render
 
 func init() {
-	r = renderer.New(renderer.Options{
+	rnd = renderer.New(renderer.Options{
 		TemplateDir: "view",
 	})
-	if err != nil {
-		log.Fatal(err)
-	}
 }
 
 func home(w http.ResponseWriter, r *http.Request) {
-	err = r.VIEW(w, http.StatusOK, "home", nil)
+	err := rnd.VIEW(w, http.StatusOK, "home", nil)
 	if err != nil {
 		log.Fatal(err)
 	}
 }
 
 func about(w http.ResponseWriter, r *http.Request) {
-	err = r.VIEW(w, http.StatusOK, "about", nil)
+	err := rnd.VIEW(w, http.StatusOK, "about", nil)
 	if err != nil {
 		log.Fatal(err)
 	}
