@@ -1,0 +1,9 @@
+<html>
+  <head>
+    <title>{{ template "title" . }}</title>
+  </head>
+  <body>
+    {{ template "content" . }}
+  </body>
+  {{ block "sidebar" .}}{{end}}
+</html>
