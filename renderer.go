@@ -6,7 +6,6 @@
 // This package is useful when building REST api and to provide response to consumer
 
 // Package renderer documentaton contains the API for this package please follow the link below
-// https://godoc.org/github.com/thedevsaddam/renderer
 package renderer
 
 import (
