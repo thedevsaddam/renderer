@@ -354,6 +354,27 @@ func Test_YAML(t *testing.T) {
 	checkBody(t, res.Body.String(), expected)
 }
 
+func Test_HTMLString(t *testing.T) {
+	r := New()
+	var err error
+
+	data := "<h1>Hello John</h1>"
+	expected := `<h1>Hello John</h1>`
+
+	h := http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+		err = r.HTMLString(w, http.StatusOK, data)
+	})
+
+	res := httptest.NewRecorder()
+	req, _ := http.NewRequest("GET", "/htmlstring", nil)
+	h.ServeHTTP(res, req)
+
+	checkNil(t, err)
+	checkStatusOK(t, res.Code)
+	checkContentType(t, res.HeaderMap.Get(ContentType), ContentHTML+"; charset="+defaultCharSet)
+	checkBody(t, res.Body.String(), expected)
+}
+
 func Test_HTML(t *testing.T) {
 	var err error
 	dir := "htmls"

@@ -366,6 +366,15 @@ func (r *Render) YAML(w http.ResponseWriter, status int, v interface{}) error {
 	return err
 }
 
+// HTMLString render string as html
+func (r *Render) HTMLString(w http.ResponseWriter, status int, html string) error {
+	w.Header().Set(ContentType, r.opts.ContentHTML)
+	w.WriteHeader(status)
+	out := template.HTML(html)
+	_, err := w.Write([]byte(out))
+	return err
+}
+
 // HTML render html from template.Glob patterns and execute template by name. See README.md for detail example.
 func (r *Render) HTML(w http.ResponseWriter, status int, name string, v interface{}) error {
 	w.Header().Set(ContentType, r.opts.ContentHTML)
