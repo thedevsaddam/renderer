@@ -366,7 +366,7 @@ func (r *Render) YAML(w http.ResponseWriter, status int, v interface{}) error {
 	return err
 }
 
-// HTMLString render string as html
+// HTMLString render string as html. Note: You must provide trusted html when using this method
 func (r *Render) HTMLString(w http.ResponseWriter, status int, html string) error {
 	w.Header().Set(ContentType, r.opts.ContentHTML)
 	w.WriteHeader(status)

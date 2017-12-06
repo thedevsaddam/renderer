@@ -1,7 +1,7 @@
 Package renderer
 ==================
 [![Build Status](https://travis-ci.org/thedevsaddam/renderer.svg?branch=master)](https://travis-ci.org/thedevsaddam/renderer)
-[![Project status](https://img.shields.io/badge/version-1.0-green.svg)](https://github.com/thedevsaddam/renderer/releases)
+[![Project status](https://img.shields.io/badge/version-1.1-green.svg)](https://github.com/thedevsaddam/renderer/releases)
 [![Go Report Card](https://goreportcard.com/badge/github.com/thedevsaddam/renderer)](https://goreportcard.com/report/github.com/thedevsaddam/renderer)
 [![Coverage Status](https://coveralls.io/repos/github/thedevsaddam/renderer/badge.svg?branch=master)](https://coveralls.io/github/thedevsaddam/renderer?branch=master)
 [![GoDoc](https://godoc.org/github.com/thedevsaddam/renderer?status.svg)](https://godoc.org/github.com/thedevsaddam/renderer)
@@ -54,6 +54,11 @@ func main() {
 	// serving success but no content
 	mux.HandleFunc("/no-content", func(w http.ResponseWriter, r *http.Request) {
 		rnd.NoContent(w)
+	})
+
+	// serving string as html
+	mux.HandleFunc("/html-string", func(w http.ResponseWriter, r *http.Request) {
+		rnd.HTMLString(w, http.StatusOK, "<h1>Hello Renderer!</h1>")
 	})
 
 	// serving JSON
