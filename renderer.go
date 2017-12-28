@@ -17,7 +17,9 @@ import (
 	"html/template"
 	"io"
 	"io/ioutil"
+	"log"
 	"net/http"
+	"os"
 	"path/filepath"
 	"strings"
 
@@ -562,5 +564,23 @@ func (r *Render) parseGlob() {
 	for _, fm := range r.opts.FuncMap {
 		tmpl.Funcs(fm)
 	}
-	r.globTemplates = template.Must(tmpl.ParseGlob(r.opts.ParseGlobPattern))
+	if !strings.Contains(r.opts.ParseGlobPattern, "*.") {
+		log.Fatal("renderer: invalid glob pattern!")
+	}
+	pf := strings.Split(r.opts.ParseGlobPattern, "*")
+	fPath := pf[0]
+	fExt := pf[1]
+	err := filepath.Walk(fPath, func(path string, info os.FileInfo, err error) error {
+		if strings.Contains(path, fExt) {
+			_, err = tmpl.ParseFiles(path)
+			if err != nil {
+				log.Println(err)
+			}
+		}
+		return err
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	r.globTemplates = tmpl
 }
