@@ -557,7 +557,7 @@ func (r *Render) parseTemplates() {
 		if err != nil {
 			panic(fmt.Errorf("renderer: %s", err.Error()))
 		}
-		r.templates[fn] = templates
+		r.templates[fn] = template.Must(templates)
 	}
 }
 
