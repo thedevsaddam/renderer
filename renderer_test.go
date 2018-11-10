@@ -151,7 +151,7 @@ func Test_Render(t *testing.T) {
 
 	checkNil(t, err)
 	checkStatusOK(t, res.Code)
-	checkContentType(t, res.HeaderMap.Get(ContentType), ContentJSON)
+	checkContentType(t, res.Header().Get(ContentType), ContentJSON)
 	checkBody(t, res.Body.String(), expected)
 }
 
@@ -172,7 +172,7 @@ func Test_String(t *testing.T) {
 
 	checkNil(t, err)
 	checkStatusOK(t, res.Code)
-	checkContentType(t, res.HeaderMap.Get(ContentType), ContentText+"; charset="+defaultCharSet)
+	checkContentType(t, res.Header().Get(ContentType), ContentText+"; charset="+defaultCharSet)
 	checkBody(t, res.Body.String(), expected)
 }
 
@@ -234,7 +234,7 @@ func Test_JSON_prefix(t *testing.T) {
 
 	checkNil(t, err)
 	checkStatusOK(t, res.Code)
-	checkContentType(t, res.HeaderMap.Get(ContentType), ContentJSON+"; charset="+defaultCharSet)
+	checkContentType(t, res.Header().Get(ContentType), ContentJSON+"; charset="+defaultCharSet)
 	checkBody(t, res.Body.String(), expected)
 }
 
@@ -259,7 +259,7 @@ func Test_JSONP(t *testing.T) {
 
 	checkNil(t, err)
 	checkStatusOK(t, res.Code)
-	checkContentType(t, res.HeaderMap.Get(ContentType), ContentJSONP+"; charset="+defaultCharSet)
+	checkContentType(t, res.Header().Get(ContentType), ContentJSONP+"; charset="+defaultCharSet)
 	checkBody(t, res.Body.String(), expected)
 }
 
@@ -283,7 +283,7 @@ func Test_JSONP_without_callback(t *testing.T) {
 
 	checkNotNil(t, err)
 	checkStatusOK(t, res.Code)
-	checkContentType(t, res.HeaderMap.Get(ContentType), ContentJSONP+"; charset="+defaultCharSet)
+	checkContentType(t, res.Header().Get(ContentType), ContentJSONP+"; charset="+defaultCharSet)
 }
 
 func Test_XML(t *testing.T) {
@@ -303,7 +303,7 @@ func Test_XML(t *testing.T) {
 
 	checkNil(t, err)
 	checkStatusOK(t, res.Code)
-	checkContentType(t, res.HeaderMap.Get(ContentType), ContentXML+"; charset="+defaultCharSet)
+	checkContentType(t, res.Header().Get(ContentType), ContentXML+"; charset="+defaultCharSet)
 	checkBody(t, res.Body.String(), expected)
 }
 
@@ -329,7 +329,7 @@ func Test_XML_indent_prefix(t *testing.T) {
 
 	checkNil(t, err)
 	checkStatusOK(t, res.Code)
-	checkContentType(t, res.HeaderMap.Get(ContentType), ContentXML+"; charset="+defaultCharSet)
+	checkContentType(t, res.Header().Get(ContentType), ContentXML+"; charset="+defaultCharSet)
 	checkBody(t, res.Body.String(), expected)
 }
 
@@ -350,7 +350,7 @@ func Test_YAML(t *testing.T) {
 
 	checkNil(t, err)
 	checkStatusOK(t, res.Code)
-	checkContentType(t, res.HeaderMap.Get(ContentType), ContentYAML+"; charset="+defaultCharSet)
+	checkContentType(t, res.Header().Get(ContentType), ContentYAML+"; charset="+defaultCharSet)
 	checkBody(t, res.Body.String(), expected)
 }
 
@@ -371,7 +371,7 @@ func Test_HTMLString(t *testing.T) {
 
 	checkNil(t, err)
 	checkStatusOK(t, res.Code)
-	checkContentType(t, res.HeaderMap.Get(ContentType), ContentHTML+"; charset="+defaultCharSet)
+	checkContentType(t, res.Header().Get(ContentType), ContentHTML+"; charset="+defaultCharSet)
 	checkBody(t, res.Body.String(), expected)
 }
 
@@ -406,7 +406,7 @@ func Test_HTML(t *testing.T) {
 
 	checkNil(t, err)
 	checkStatusOK(t, res.Code)
-	checkContentType(t, res.HeaderMap.Get(ContentType), ContentHTML+"; charset="+defaultCharSet)
+	checkContentType(t, res.Header().Get(ContentType), ContentHTML+"; charset="+defaultCharSet)
 	checkBody(t, res.Body.String(), expected)
 }
 
@@ -440,7 +440,7 @@ func Test_HTML_without_name_and_debug(t *testing.T) {
 
 	checkNotNil(t, err)
 	checkStatusOK(t, res.Code)
-	checkContentType(t, res.HeaderMap.Get(ContentType), ContentHTML+"; charset="+defaultCharSet)
+	checkContentType(t, res.Header().Get(ContentType), ContentHTML+"; charset="+defaultCharSet)
 }
 
 func Test_HTML_invalid_name(t *testing.T) {
@@ -473,7 +473,7 @@ func Test_HTML_invalid_name(t *testing.T) {
 
 	checkNotNil(t, err)
 	checkStatusOK(t, res.Code)
-	checkContentType(t, res.HeaderMap.Get(ContentType), ContentHTML+"; charset="+defaultCharSet)
+	checkContentType(t, res.Header().Get(ContentType), ContentHTML+"; charset="+defaultCharSet)
 }
 
 func Test_Template(t *testing.T) {
@@ -510,7 +510,7 @@ func Test_Template(t *testing.T) {
 
 	checkNil(t, err)
 	checkStatusOK(t, res.Code)
-	checkContentType(t, res.HeaderMap.Get(ContentType), ContentHTML+"; charset="+defaultCharSet)
+	checkContentType(t, res.Header().Get(ContentType), ContentHTML+"; charset="+defaultCharSet)
 	checkBody(t, res.Body.String(), expected)
 }
 
@@ -549,7 +549,7 @@ func Test_View(t *testing.T) {
 
 	checkNil(t, err)
 	checkStatusOK(t, res.Code)
-	checkContentType(t, res.HeaderMap.Get(ContentType), ContentHTML+"; charset="+defaultCharSet)
+	checkContentType(t, res.Header().Get(ContentType), ContentHTML+"; charset="+defaultCharSet)
 	checkBody(t, res.Body.String(), expected)
 }
 
@@ -584,7 +584,7 @@ func Test_View_invalid_name(t *testing.T) {
 
 	checkNotNil(t, err)
 	checkStatusOK(t, res.Code)
-	checkContentType(t, res.HeaderMap.Get(ContentType), ContentHTML+"; charset="+defaultCharSet)
+	checkContentType(t, res.Header().Get(ContentType), ContentHTML+"; charset="+defaultCharSet)
 }
 
 func Test_Binary_inline(t *testing.T) {
@@ -602,7 +602,7 @@ func Test_Binary_inline(t *testing.T) {
 
 	checkNil(t, err)
 	checkStatusOK(t, res.Code)
-	checkContentType(t, res.HeaderMap.Get(ContentType), r.opts.ContentBinary)
+	checkContentType(t, res.Header().Get(ContentType), r.opts.ContentBinary)
 	checkBody(t, res.Body.String(), "This is a long binary data")
 }
 
@@ -621,7 +621,7 @@ func Test_Binary_attachment(t *testing.T) {
 
 	checkNil(t, err)
 	checkStatusOK(t, res.Code)
-	checkContentType(t, res.HeaderMap.Get(ContentType), r.opts.ContentBinary)
+	checkContentType(t, res.Header().Get(ContentType), r.opts.ContentBinary)
 	checkBody(t, res.Body.String(), "This is a long binary data")
 }
 
@@ -675,7 +675,7 @@ func Test_File_view(t *testing.T) {
 
 	checkNil(t, err)
 	checkStatusOK(t, res.Code)
-	checkContentType(t, res.HeaderMap.Get(ContentType), r.opts.ContentText)
+	checkContentType(t, res.Header().Get(ContentType), r.opts.ContentText)
 }
 
 func Test_File_download(t *testing.T) {
@@ -692,7 +692,7 @@ func Test_File_download(t *testing.T) {
 
 	checkNil(t, err)
 	checkStatusOK(t, res.Code)
-	checkContentType(t, res.HeaderMap.Get(ContentType), r.opts.ContentText)
+	checkContentType(t, res.Header().Get(ContentType), r.opts.ContentText)
 }
 
 func Benchmark_NoContent(b *testing.B) {
