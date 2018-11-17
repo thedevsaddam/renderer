@@ -547,13 +547,14 @@ func (r *Render) parseTemplates() {
 	for _, tpl := range tpls {
 		files := append(layouts, tpl)
 		fn := filepath.Base(tpl)
-		// TODO: add FuncMap and Delims
-		// tmpl := template.New(fn)
-		// tmpl.Delims(r.opts.LeftDelim, r.opts.RightDelim)
-		// for _, fm := range r.opts.FuncMap {
-		// 	tmpl.Funcs(fm)
-		// }
-		r.templates[fn] = template.Must(template.ParseFiles(files...))
+
+		tmpl := template.New(fn)
+		tmpl.Delims(r.opts.LeftDelim, r.opts.RightDelim)
+		for _, fm := range r.opts.FuncMap {
+			tmpl.Funcs(fm)
+		}
+
+		r.templates[fn] = template.Must(tmpl.ParseFiles(files...))
 	}
 }
 
