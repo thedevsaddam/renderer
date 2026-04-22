@@ -1,0 +1,47 @@
+name: CI
+
+on:
+    push:
+        branches: [ "v2" ]
+    pull_request:
+
+jobs:
+    test:
+        name: Test & Build
+        runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+                go-version: [ 1.21, 1.22, 1.25 ]
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Set up Go
+              uses: actions/setup-go@v5
+              with:
+                  go-version: ${{ matrix.go-version }}
+
+            - name: Cache Go modules
+              uses: actions/cache@v4
+              with:
+                  path: |
+                      ~/go/pkg/mod
+                      ~/.cache/go-build
+                  key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+
+            - name: Download dependencies
+              run: go mod download
+
+            - name: Verify go.mod
+              run: go mod tidy && git diff --exit-code
+
+            - name: Run tests
+              run: go test ./... -v -race
+
+            - name: Run benchmarks (sanity check)
+              run: go test ./... -bench=. -run=^$ -benchmem
+
+            - name: Build package
+              run: go build ./...
